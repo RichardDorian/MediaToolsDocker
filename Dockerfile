@@ -1,10 +1,11 @@
 FROM debian:bookworm-slim
 
 ARG MAKEMKV_VERSION=1.18.1
+ARG DOVI_TOOL_VERSION=2.2.0
 ARG TEMP_DIR=/build_tmp
 
 RUN apt update && apt upgrade -y
-RUN apt install curl wget -y
+RUN apt install curl wget tar -y
 
 WORKDIR ${TEMP_DIR}
 
@@ -27,6 +28,11 @@ RUN wget https://www.makemkv.com/download/makemkv-bin-${MAKEMKV_VERSION}.tar.gz 
 RUN tar -xzf makemkv-oss-${MAKEMKV_VERSION}.tar.gz && tar -xzf makemkv-bin-${MAKEMKV_VERSION}.tar.gz
 RUN cd makemkv-oss-${MAKEMKV_VERSION} && ./configure && make && make install
 RUN cd makemkv-bin-${MAKEMKV_VERSION} && mkdir tmp && echo "accepted" > tmp/eula_accepted && make install
+
+# Install dovi_tool
+RUN wget https://github.com/quietvoid/dovi_tool/releases/download/${DOVI_TOOL_VERSION}/dovi_tool-${DOVI_TOOL_VERSION}-x86_64-unknown-linux-musl.tar.gz
+RUN tar -xzf dovi_tool-${DOVI_TOOL_VERSION}-x86_64-unknown-linux-musl.tar.gz
+RUN mv dovi_tool /usr/local/bin
 
 WORKDIR /root
 RUN cd && rm -rf ${TEMP_DIR}

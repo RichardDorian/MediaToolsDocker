@@ -6,6 +6,7 @@ This docker image contains a set of tools for media processing, including:
 - [`MediaInfo`](https://mediaarea.net/en/MediaInfo)
 - [`MKVToolNix`](https://mkvtoolnix.download/)
 - [`MakeMKV`](https://www.makemkv.com/)
+- [`dovi_tool`](https://github.com/quietvoid/dovi_tool)
 
 ## To do
 
